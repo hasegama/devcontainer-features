@@ -1,10 +1,9 @@
 {
-    "hello": {
+    "basic": {
         "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
         "features": {
-            "hello": {
-                "greeting": "hello"
-            }
+            "ghcr.io/devcontainers/features/node:1": {},
+            "claude-code": {}
         }
     }
 }
