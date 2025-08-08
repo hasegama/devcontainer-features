@@ -7,6 +7,9 @@ if ! command -v ccusage &> /dev/null; then
 fi
 
 # Basic invocation (help)
+mkdir -p /root/.claude/projects /root/.config/claude/projects
+export CLAUDE_CONFIG_DIR=/root/.claude
+
 if ! ccusage --help >/dev/null 2>&1; then
   echo "ccusage help failed"
   exit 1
