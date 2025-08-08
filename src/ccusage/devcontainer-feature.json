@@ -1,0 +1,12 @@
+{
+  "name": "ccusage CLI",
+  "id": "ccusage",
+  "version": "1.0.0",
+  "description": "Installs the ccusage CLI globally (npm install -g ccusage)",
+  "options": {},
+  "documentationURL": "https://github.com/hasegama/devcontainer-features/tree/main/src/ccusage",
+  "licenseURL": "https://github.com/ryoppippi/ccusage/blob/main/LICENSE",
+  "installsAfter": [
+    "ghcr.io/devcontainers/features/node"
+  ]
+}
