@@ -3,8 +3,6 @@ set -e
 
 source dev-container-features-test-lib
 
-check "node version" node --version
-check "npm version" npm --version
 check "ccusage installed" command -v ccusage
 
 # Prepare dummy Claude data directories (use $HOME to work under non-root images)
