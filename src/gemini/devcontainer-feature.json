@@ -1,1 +1,12 @@
-{"name":"Google Gemini CLI","id":"gemini","version":"1.0.0","description":"Installs the Google Gemini CLI globally","options":{},"documentationURL":"https://github.com/hasegama/devcontainer-features/tree/main/src/gemini","licenseURL":"https://github.com/google-gemini/gemini-cli/blob/main/LICENSE","installsAfter":["ghcr.io/devcontainers/features/node"]}
+{
+    "name": "Google Gemini CLI",
+    "id": "gemini",
+    "version": "1.0.0",
+    "description": "Installs the Google Gemini CLI globally",
+    "options": {},
+    "documentationURL": "https://github.com/hasegama/devcontainer-features/tree/main/src/gemini",
+    "licenseURL": "https://github.com/google-gemini/gemini-cli/blob/main/LICENSE",
+    "installsAfter": [
+        "ghcr.io/devcontainers/features/node"
+    ]
+}
