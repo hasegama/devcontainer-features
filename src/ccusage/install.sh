@@ -39,14 +39,8 @@ install_nodejs() {
     case "$pkg_manager" in
         apt)
             install_packages apt "ca-certificates curl gnupg"
-            if ( mkdir -p /etc/apt/keyrings && \
-                 curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg && \
-                 echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_18.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list && \
-                 apt-get update && apt-get install -y nodejs ); then
-                :
-            else
-                apt-get update && apt-get install -y nodejs npm || true
-            fi
+            curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+            apt-get install -y nodejs
             if command -v nodejs >/dev/null && ! command -v node >/dev/null; then
                 ln -sf "$(command -v nodejs)" /usr/bin/node
             fi
@@ -88,7 +82,7 @@ EOF
 
 main() {
     echo "Activating feature 'ccusage'"
-    PKG_MANAGER=$(detect_package_manager)
+    PKG_MANAGER=$(detect_package_manager || true)
 
     if ! command -v node >/dev/null || ! command -v npm >/dev/null; then
         echo "Node.js or npm not found, attempting to install..."
