@@ -50,13 +50,20 @@ install_nodejs() {
     
     case "$pkg_manager" in
         apt)
-            # Debian/Ubuntu - install more recent Node.js LTS
+            # Debian/Ubuntu - try NodeSource LTS first, fall back to distro nodejs
             install_packages apt "ca-certificates curl gnupg"
-            mkdir -p /etc/apt/keyrings
-            curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
-            echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_18.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list
-            apt-get update
-            apt-get install -y nodejs
+            if ( mkdir -p /etc/apt/keyrings && \
+                 curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg && \
+                 echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_18.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list && \
+                 apt-get update && apt-get install -y nodejs ); then
+                : # NodeSource succeeded
+            else
+                apt-get update && apt-get install -y nodejs npm || true
+            fi
+            # Debian may only provide nodejs binary; ensure node is available
+            if command -v nodejs >/dev/null && ! command -v node >/dev/null; then
+                ln -sf "$(command -v nodejs)" /usr/bin/node
+            fi
             ;;
         apk)
             # Alpine
