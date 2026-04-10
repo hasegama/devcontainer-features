@@ -30,7 +30,17 @@ fi
 # user) and PATH would not pick it up anyway. Installing as the target user
 # places the binary under their own home with correct ownership.
 TARGET_USER="${_REMOTE_USER:-root}"
-TARGET_HOME="${_REMOTE_USER_HOME:-/root}"
+
+# Resolve TARGET_HOME from /etc/passwd at install time rather than trusting
+# `_REMOTE_USER_HOME`. When the target user is created by an earlier feature
+# (e.g. `common-utils` creating `vscode`), the devcontainer CLI may have
+# evaluated `_REMOTE_USER_HOME` before that user existed and set it to
+# `/root`, which would cause the binary lookup below to fail even though
+# `su - ${TARGET_USER}` correctly installs into the user's real home.
+TARGET_HOME=$(getent passwd "${TARGET_USER}" 2>/dev/null | cut -d: -f6 || true)
+if [ -z "${TARGET_HOME}" ]; then
+    TARGET_HOME="${_REMOTE_USER_HOME:-/root}"
+fi
 
 detect_package_manager() {
     for pm in apt-get apk dnf yum; do
