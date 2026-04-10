@@ -1,7 +1,7 @@
 
 # Claude Code CLI (claude-code)
 
-Installs the Claude Code CLI globally
+Installs the Claude Code CLI globally (native installer)
 
 ## Example Usage
 
@@ -25,40 +25,52 @@ Installs the Claude Code CLI globally
 
 # Using Claude Code in devcontainers
 
+## Installation method
+
+This feature uses the official native installer
+(`curl -fsSL https://claude.ai/install.sh | bash`).
+npm installation was deprecated by Anthropic in Feb 2026, so we migrated away
+from it.
+
+Reference: https://code.claude.com/docs/en/setup
+
 ## Requirements
 
-This feature requires Node.js and npm to be available in the container. You need to either:
+- `curl` must be available in the container (included in most base images).
+- **Node.js is NOT required** — the native installer has no runtime dependencies.
 
-1. Use a base container image that includes Node.js, or
-2. Add the Node.js feature to your devcontainer.json
-3. Let this feature attempt to install Node.js automatically (best-effort, works on Debian/Ubuntu, Alpine, Fedora, RHEL, and CentOS)
+## User context and PATH
 
-Note: When auto-installing Node.js, a compatible LTS version (Node.js 18.x) will be used.
+devcontainer Feature scripts always run as root (per the spec). However,
+the native installer places the CLI binary at `$HOME/.local/bin/claude`,
+which would land in `/root/.local/bin` if we ran it as root — inaccessible
+to the end user, and not on PATH anyway.
 
-## Recommended configuration
+To solve this, `install.sh`:
 
-For most setups, we recommend explicitly adding both features:
+1. Reads `_REMOTE_USER` / `_REMOTE_USER_HOME`, which the devcontainer CLI
+   automatically injects based on `devcontainer.json`'s `remoteUser` /
+   `containerUser` settings.
+2. Runs the native installer via `su - <user>` so the binary lands under
+   that user's home with correct ownership.
+3. Symlinks the binary to `/usr/local/bin/claude` so it is discoverable on
+   PATH regardless of shell configuration. The actual data directory
+   (`$HOME/.local/share/claude`) stays under the end user's home.
 
-```json
-"features": {
-    "ghcr.io/devcontainers/features/node:1": {},
-    "ghcr.io/hasegama/devcontainer-features/claude-code:1": {}
-}
-```
+Reference: https://containers.dev/implementors/features/
 
-## Using with containers that already have Node.js
+## Version pinning
 
-If your container already has Node.js installed (for example, a container based on a Node.js image or one using nvm), you can use the Claude Code feature directly without adding the Node.js feature:
+The Claude Code CLI version is managed by the `CLAUDE_CODE_VERSION` variable
+inside `install.sh`.
 
-```json
-"features": {
-    "ghcr.io/hasegama/devcontainer-features/claude-code:1": {}
-}
-```
+Note that `devcontainer-feature.json`'s `version` field is the version of this
+feature itself, which is independent from the Claude Code CLI version. Do not
+confuse the two.
 
-## Using with nvm
+When bumping the CLI version, edit only `install.sh`. Bump the feature's own
+version according to this feature repository's release policy.
 
-When using with containers that have nvm pre-installed, you can use the Claude Code feature directly, and it will use the existing Node.js installation.
 
 ---
 
