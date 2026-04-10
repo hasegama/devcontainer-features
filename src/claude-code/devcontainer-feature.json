@@ -2,7 +2,7 @@
     "name": "Claude Code CLI",
     "id": "claude-code",
     "version": "1.0.55",
-    "description": "Installs the Claude Code CLI globally",
+    "description": "Installs the Claude Code CLI globally (native installer)",
     "options": {},
     "documentationURL": "https://github.com/hasegama/devcontainer-features/tree/main/src/claude-code",
     "licenseURL": "https://github.com/hasegama/devcontainer-features/blob/main/LICENSE",
@@ -12,8 +12,5 @@
                 "anthropic.claude-code"
             ]
         }
-    },
-    "installsAfter": [
-        "ghcr.io/devcontainers/features/node"
-    ]
+    }
 }
