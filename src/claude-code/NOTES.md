@@ -14,6 +14,26 @@ Reference: https://code.claude.com/docs/en/setup
 - `curl` must be available in the container (included in most base images).
 - **Node.js is NOT required** — the native installer has no runtime dependencies.
 
+## User context and PATH
+
+devcontainer Feature scripts always run as root (per the spec). However,
+the native installer places the CLI binary at `$HOME/.local/bin/claude`,
+which would land in `/root/.local/bin` if we ran it as root — inaccessible
+to the end user, and not on PATH anyway.
+
+To solve this, `install.sh`:
+
+1. Reads `_REMOTE_USER` / `_REMOTE_USER_HOME`, which the devcontainer CLI
+   automatically injects based on `devcontainer.json`'s `remoteUser` /
+   `containerUser` settings.
+2. Runs the native installer via `su - <user>` so the binary lands under
+   that user's home with correct ownership.
+3. Symlinks the binary to `/usr/local/bin/claude` so it is discoverable on
+   PATH regardless of shell configuration. The actual data directory
+   (`$HOME/.local/share/claude`) stays under the end user's home.
+
+Reference: https://containers.dev/implementors/features/
+
 ## Version pinning
 
 The Claude Code CLI version is managed by the `CLAUDE_CODE_VERSION` variable
