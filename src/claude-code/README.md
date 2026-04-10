@@ -7,7 +7,7 @@ Installs the Claude Code CLI globally (native installer)
 
 ```json
 "features": {
-    "ghcr.io/hasegama/devcontainer-features/claude-code:1": {}
+    "ghcr.io/hasegama/devcontainer-features/claude-code:2": {}
 }
 ```
 
@@ -64,12 +64,22 @@ Reference: https://containers.dev/implementors/features/
 The Claude Code CLI version is managed by the `CLAUDE_CODE_VERSION` variable
 inside `install.sh`.
 
-Note that `devcontainer-feature.json`'s `version` field is the version of this
-feature itself, which is independent from the Claude Code CLI version. Do not
-confuse the two.
+**The feature's own `version` field in `devcontainer-feature.json` mirrors
+the Claude Code CLI version it installs.** This makes it immediately obvious
+which CLI version a given feature release is pinned to, and keeps the two
+numbers in lockstep.
 
-When bumping the CLI version, edit only `install.sh`. Bump the feature's own
-version according to this feature repository's release policy.
+When bumping the CLI version, update **both** of the following to the same
+value:
+
+1. `CLAUDE_CODE_VERSION` in `install.sh`
+2. `version` in `devcontainer-feature.json`
+
+Then trigger the `Release dev container features & Generate Documentation`
+workflow (`workflow_dispatch`) on `main` to publish the new version to
+`ghcr.io/hasegama/devcontainer-features/claude-code`. The publish step is a
+no-op if `version` is unchanged, so bumping it is required to roll out any
+install-logic fix as well.
 
 
 ---
