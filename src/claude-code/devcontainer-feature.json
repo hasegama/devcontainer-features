@@ -1,7 +1,7 @@
 {
     "name": "Claude Code CLI",
     "id": "claude-code",
-    "version": "2.1.87",
+    "version": "2.1.119",
     "description": "Installs the Claude Code CLI globally (native installer)",
     "options": {},
     "documentationURL": "https://github.com/hasegama/devcontainer-features/tree/main/src/claude-code",
