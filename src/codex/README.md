@@ -15,7 +15,7 @@ Installs the OpenAI Codex CLI globally
 
 | Options Id | Description | Type | Default Value |
 |-----|-----|-----|-----|
-
+| version | Codex CLI version to install (e.g. '0.144.1', 'latest') | string | latest |
 
 # Using OpenAI Codex in devcontainers
 
