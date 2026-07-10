@@ -3,7 +3,13 @@
     "id": "codex",
     "version": "1.0.0",
     "description": "Installs the OpenAI Codex CLI globally",
-    "options": {},
+    "options": {
+        "version": {
+            "type": "string",
+            "default": "latest",
+            "description": "Codex CLI version to install (e.g. '0.144.1', 'latest')"
+        }
+    },
     "documentationURL": "https://github.com/hasegama/devcontainer-features/tree/main/src/codex",
     "licenseURL": "https://github.com/openai/codex/blob/main/LICENSE",
     "installsAfter": [
