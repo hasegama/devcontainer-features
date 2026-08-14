@@ -12,7 +12,8 @@ set -eu
 #   - "stable": stable channel (~1 week delayed, skips releases with major regressions)
 #   - "latest": latest release
 # Previous pin: 2.1.87 until 20260424
-CLAUDE_CODE_VERSION="2.1.119"
+# Previous pin: 2.1.119 until 20260814
+CLAUDE_CODE_VERSION="2.1.232"
 
 if [ "$(id -u)" -ne 0 ]; then
     echo "Script must be run as root. Use sudo, su, or add \"USER root\" to your Dockerfile before running this script."
