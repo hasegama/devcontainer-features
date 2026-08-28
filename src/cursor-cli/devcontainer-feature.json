@@ -1,0 +1,9 @@
+{
+    "name": "Cursor CLI",
+    "id": "cursor-cli",
+    "version": "1.0.0",
+    "description": "Installs the Cursor CLI globally (native installer)",
+    "options": {},
+    "documentationURL": "https://github.com/hasegama/devcontainer-features/tree/main/src/cursor-cli",
+    "licenseURL": "https://cursor.com/terms-of-service"
+}

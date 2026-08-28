@@ -7,6 +7,7 @@
 - `claude-code`: Installs the Claude Code CLI (pinned version) and VS Code extension.
 - `ccusage`: Installs the ccusage CLI for analyzing Claude Code token usage (`npm install -g ccusage`).
 - `codex`: Installs the OpenAI Codex CLI (`npm install -g @openai/codex`).
+- `cursor-cli`: Installs the Cursor CLI (pinned native binary; `agent` / `cursor-agent`).
 
 ## Example devcontainer.json snippet
 
@@ -17,7 +18,8 @@
 		"ghcr.io/devcontainers/features/node:1": {},
 		"ghcr.io/hasegama/devcontainer-features/claude-code:latest": {},
 		"ghcr.io/hasegama/devcontainer-features/ccusage:latest": {},
-		"ghcr.io/hasegama/devcontainer-features/codex:latest": {}
+		"ghcr.io/hasegama/devcontainer-features/codex:latest": {},
+		"ghcr.io/hasegama/devcontainer-features/cursor-cli:latest": {}
 	}
 }
 ```

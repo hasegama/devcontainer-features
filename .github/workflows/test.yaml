@@ -16,6 +16,7 @@ jobs:
           - claude-code
           - ccusage
           - codex
+          - cursor-cli
           - gemini
         baseImage:
           - debian:latest
@@ -39,6 +40,7 @@ jobs:
           - claude-code
           - ccusage
           - codex
+          - cursor-cli
           - gemini
     steps:
       - uses: actions/checkout@v4
