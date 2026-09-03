@@ -14,7 +14,9 @@ set -eu
 # Previous pin: 2.1.87 until 20260424
 # Previous pin: 2.1.119 until 20260814
 # Previous pin: 2.1.232 until 20260825
-CLAUDE_CODE_VERSION="2.1.241"
+# Previous pin: 2.1.241 until 20260903
+# 2.1.259: current latest; claude-fable-5-1 needs 2.1.151 or newer.
+CLAUDE_CODE_VERSION="2.1.259"
 
 if [ "$(id -u)" -ne 0 ]; then
     echo "Script must be run as root. Use sudo, su, or add \"USER root\" to your Dockerfile before running this script."
